@@ -7,59 +7,58 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<img src="logo-verzani.png">
-<div id="entradaContainer">
-  <label for="entrada"><strong>INSIRA OS DADOS NO FORMATO:</strong> <br><small><code>NOME - CARGO - CLASSIFICAÇÃO ; CHEFE</code></small></label>
-  <textarea id="entrada" placeholder="Exemplo:  
+  <img src="logo-verzani.png">
+
+  <div id="entradaContainer">
+    <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 10px;">
+      <label for="entrada" style="font-weight: 600; font-size: 16px; color: #333;">
+        <strong>INSIRA OS DADOS NO FORMATO:</strong><br>
+        <small><code>NOME - CARGO - CLASSIFICAÇÃO ; SUPERVISOR</code></small>
+      </label>
+      <span id="ultimaAtualizacao" style="color: #555; font-size: 14px;">
+        Última geração: ainda não gerado
+      </span>
+    </div>
+
+    <textarea id="entrada" placeholder="Exemplo:
 ANTONIO CAVALCANTI JUNIOR-CFO-02. VP ;FABIO SANDRINI BAPTISTA
 FABIO PANHONI DE PAULA PEREIRA-DIRETOR M&A-03. Diretor ;ANTONIO CAVALCANTI JUNIOR"></textarea>
-  <button onclick="gerarOrganograma()">GERAR ORGANOGRAMA</button>
+
+    <!-- Botão e modelos -->
+    <div id="acoesContainer">
+      <button id="gerarBtn" onclick="gerarOrganograma()">Gerar Organogramas</button>
+      <select id="seletorModelos" onchange="carregarModeloSelecionado()">
+  <option><strong>SELECIONAR MODELOS SALVOS:</strong></option>
+  <option value="modelo1">Modelo: Diretoria e Gerentes</option>
+  <option value="modelo2">Modelo: CEO </option>
+  <option value="modelo3">Modelo: RECURSOS HUMANOS</option>
+  <option value="modelo4">Modelo: COMERCIAL</option>
+  <option value="modelo5">Modelo: COMPLIANCE</option>
+  <option value="modelo6">Modelo: FINANCEIRO</option>
+  <option value="modelo7">Modelo: M&A</option>
+  <option value="modelo8">Modelo: SUL</option>
+  <option value="modelo9">Modelo: CSC</option>
+  <option value="modelo10">Modelo: NENO</option>
+  <option value="modelo11">Modelo: POLO</option>
+  <option value="modelo12">Modelo: EFICIÊNCIA</option>
+</select>
+
+    </div>
+  </div>
+
+ <div id="modal">
+  <div class="modal-content">
+    <h2 id="modal-nome"></h2>
+    <p><strong>Cargo:</strong> <span id="modal-cargo"></span></p>
+    <p><strong>Classificação:</strong> <span id="modal-classificacao"></span></p>
+    <p><strong>Departamento:</strong> <span id="modal-departamento"></span></p>
+    <p><strong>Seção:</strong> <span id="modal-secao"></span></p>
+    <button id="fechar-modal">Fechar</button>
+  </div>
 </div>
 
-<div id="organograma"></div>
+  <div class="org" id="organograma"></div>s
 
-<script>
-  function gerarOrganograma() {
-    const texto = document.getElementById("entrada").value;
-    const linhas = texto.trim().split("\n");
-    const nodes = [];
-
-    linhas.forEach(linha => {
-      if (linha.trim() === "") return;
-
-      const partes = linha.trim().split(";");
-      const dados = partes[0].trim().split("-");
-      const nome = dados[0]?.trim();
-      const cargo = dados[1]?.trim() || "";
-      const classificacao = dados[2]?.trim() || "";
-      const chefe = partes[1]?.trim();
-
-      if (!nome) return;
-
-      const node = {
-        id: nome,
-        name: nome,
-        title: `${cargo} - ${classificacao}`
-      };
-
-      if (chefe && chefe !== nome) {
-        node.pid = chefe;
-      }
-
-      nodes.push(node);
-    });
-
-    document.getElementById("organograma").innerHTML = "";
-
-    new OrgChart(document.getElementById("organograma"), {
-      nodes,
-      template: "isla",
-      nodeBinding: {
-        field_0: "name",
-        field_1: "title"
-      }
-    });
-  }
-</script>
+<script src="script.js"></script>
 </body>
 </html>
