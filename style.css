@@ -20,7 +20,7 @@ img {
   padding: 24px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   border-radius: 12px;
-  max-width: 1400px;
+  max-width: 1300px;
   margin: 24px auto;
 }
 
@@ -87,13 +87,9 @@ img {
   width: 180%;
   height: 70vh;
   margin: 20px auto;
-  max-width: 1400px;
+  max-width: 1300px;
   border-radius: 20px;
   border: 1px solid #009da8;
-}
-
-.org{
-  width: 150%;
 }
 
 #modal {
